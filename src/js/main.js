@@ -61,5 +61,23 @@ function displayMessage(password, passwordScore) {
     : validationResult;
 }
 
-const message = displayMessage("@#2aaaa", passwordScore);
-console.log(message);
+const message = displayMessage("!aaa!1", passwordScore);
+
+function validateP(password) {
+  if (typeof password !== "string") {
+    throw new Error(`It's OK to have an error - password isn't a string.`);
+  }
+
+  const specials =
+    password.includes("!") || password.includes("@") || password.includes("#");
+  const length = password.length >= 3 && password.length <= 10;
+  const number = password.match(/\d+/g);
+
+  if (length && specials && number) {
+    return true;
+  }
+
+  return false;
+}
+
+console.log(validateP("sss"));

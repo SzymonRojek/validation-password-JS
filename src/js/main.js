@@ -1,83 +1,99 @@
 import {
-  countNumbers,
-  countSpecialCharacters,
-  countUpperLetters,
-  hasNumber,
-  hasProperLength,
-  hasSpecialCharacter,
-  hasUpperLetter,
-  isNotFunctionError,
-  isNotStringError,
-  passwordScore,
+    countNumbers,
+    countSpecialCharacters,
+    countUpperLetters,
+    hasNumber,
+    hasProperLength,
+    hasSpecialCharacter,
+    hasUpperLetter,
+    isNotFunctionError,
+    isNotStringError,
+    passwordScore,
+    additionalMessage,
 } from "../helpers";
 
-function validatePassword(password) {
-  isNotStringError(password);
+{
+    const passwordValue = document.querySelector(".js-passwordInput");
+    const errorPasswordReuired = [{ message: "Password is required!" }];
 
-  const validationErrors = [
-    hasProperLength(password),
-    hasSpecialCharacter(password),
-    hasNumber(password),
-    hasUpperLetter(password),
-  ];
+    let errors = [];
 
-  const onlyErrors = validationErrors
-    .filter(({ message }) => typeof message === "string")
-    .map(({ message }) => {
-      console.log(message);
-    });
+    function findPasswordErrors(password) {
+        isNotStringError(password);
 
-  return !onlyErrors.length ? "Password is correct" : onlyErrors;
+        const validationErrors = [
+            hasProperLength(password),
+            hasSpecialCharacter(password),
+            hasNumber(password),
+            hasUpperLetter(password),
+        ];
+
+        errors =
+            passwordValue.value !== "" ?
+            validationErrors.filter(({ message }) => message) :
+            errorPasswordReuired;
+    }
+
+    function getPasswordScore(password) {
+        return [
+            countSpecialCharacters(password),
+            countNumbers(password),
+            countUpperLetters(password),
+        ];
+    }
+
+    function getMessageScoreByValue(object, callback) {
+        isNotFunctionError(callback);
+
+        return (
+            Object.keys(object).find((key) =>
+                object[key].find(
+                    (a) => JSON.stringify(a) === JSON.stringify(callback())
+                )
+            ) || "& weak"
+        );
+    }
+
+    function renderErrors(value) {
+        const passwordStrength = getMessageScoreByValue(passwordScore, () =>
+            getPasswordScore(value)
+        );
+
+        const messageErrorsToHTML = errors
+            .map(({ message }) => {
+                return `<li class="form__list-error">
+              ${message}
+                </li>`;
+            })
+            .join("");
+
+        if (!errors.length) {
+            additionalMessage(`Password is correct and ${passwordStrength}`);
+        }
+
+        const messageErrorsElement = document.querySelector(".js-errors");
+        messageErrorsElement.innerHTML = messageErrorsToHTML;
+    }
+
+    function render() {
+        findPasswordErrors(passwordValue.value);
+        renderErrors(passwordValue.value);
+    }
+
+    function onFormSubmit(event) {
+        event.preventDefault();
+
+        render();
+
+        passwordValue.value.trim();
+        passwordValue.focus();
+    }
+
+    function init() {
+        const form = document.querySelector(".js-form");
+
+        form.addEventListener("submit", onFormSubmit);
+    }
+
+    init();
 }
-
-function getPasswordScore(password) {
-  return [
-    countSpecialCharacters(password),
-    countNumbers(password),
-    countUpperLetters(password),
-  ];
-}
-
-function getMessageScoreByValue(object, callback) {
-  isNotFunctionError(callback);
-
-  return (
-    Object.keys(object).find((key) => {
-      return object[key].find(
-        (a) => JSON.stringify(a) === JSON.stringify(callback())
-      );
-    }) || "& weak"
-  );
-}
-
-function displayMessage(password, passwordScore) {
-  const validationResult = validatePassword(password);
-  const passwordStrength = getMessageScoreByValue(passwordScore, () =>
-    getPasswordScore(password)
-  );
-
-  return typeof validationResult === "string"
-    ? `${validationResult} ${passwordStrength}`
-    : validationResult;
-}
-
-const message = displayMessage("!aaa!1", passwordScore);
-
-function validateP(password) {
-  if (typeof password !== "string") {
-    throw new Error(`It's OK to have an error - password isn't a string.`);
-  }
-
-  const specials =
-    password.includes("!") || password.includes("@") || password.includes("#");
-  const length = password.length >= 3 && password.length <= 10;
-  const number = password.match(/\d+/g);
-
-  if (length && specials && number) {
-    return true;
-  }
-
-  return false;
-}
-
-console.log(validateP("sss"));

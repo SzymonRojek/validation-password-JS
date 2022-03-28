@@ -18,11 +18,9 @@
         "url": "https://github.com/SzymonRojek/validation-password-JS"
     },
     "homepage": "https://github.com/SzymonRojek/validation-password-JS#readme",
-    "dependencies": {
-        "gh-pages": "^3.2.3"
-    },
     "devDependencies": {
         "@parcel/transformer-sass": "^2.4.0",
+        "gh-pages": "^3.2.3",
         "parcel": "^2.4.0"
     }
 }

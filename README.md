@@ -25,7 +25,7 @@ Password Validation Form has got some restrictions:
 - minimum one number
 - the elength between 5 and 12 characters
 
-If password doesn't have a one of the rule the error occurs on the screen. Also I have added
+If password doesn't have a one of the rule the error occurs on the screen.
 
 I have written pure functions and objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
 

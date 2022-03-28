@@ -5,6 +5,8 @@ const specialCharacterError = {
 export default function hasSpecialCharacter(password) {
   const specialCharacters = ["@", "!", "#"];
 
+  let isChar = false;
+
   for (const char of specialCharacters) {
     if (password.includes(char)) {
       isChar = true;

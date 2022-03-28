@@ -12,10 +12,10 @@
         "url": "git+https://github.com/SzymonRojek/validation-password-JS.git"
     },
     "keywords": [],
-    "author": "",
+    "author": "Szymon Rojek",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/SzymonRojek/validation-password-JS"
+        "url": "https://github.com/SzymonRojek/validation-password-JS/issues"
     },
     "homepage": "https://github.com/SzymonRojek/validation-password-JS#readme",
     "devDependencies": {

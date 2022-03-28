@@ -27,7 +27,7 @@ Password Validation Form has got some restrictions:
 
 If password doesn't have a one of the rule the error occurs on the screen.
 
-I have written pure functions and objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
+RWD - only desktop. Project written just to develop pure functions and to have a better understing of objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
 
 <br>
 

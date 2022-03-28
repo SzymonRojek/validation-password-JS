@@ -27,7 +27,7 @@ Password Validation Form has got some restrictions:
 
 If password doesn't have a one of the rule the error occurs on the screen.
 
-RWD - only desktop. Project written just to develop pure functions and to have a better understing of objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
+Project written just to develop pure functions and to have a better understing of objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
 
 <br>
 
@@ -64,6 +64,7 @@ RWD - only desktop. Project written just to develop pure functions and to have a
 
 - Semantic HTML
 - BEM methodology
+- RWD
 - Functional Programming (mostly pure functions)
 
 <br>

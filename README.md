@@ -7,7 +7,7 @@
 <br>
 <br>
 
-<img src="./src/img/password-validation.giff.gif" width="250" height="400">
+<img src="./src/img/password-validation.giff" width="250" height="400">
 
 <br>
 <br>

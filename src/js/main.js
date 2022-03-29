@@ -7,10 +7,10 @@ import {
     hasSpecialCharacter,
     hasUpperLetter,
     isNotStringError,
-    passwordScore,
     additionalMessage,
     getPasswordStrengthRating,
 } from "../helpers";
+import { passwordScoreData } from "./passwordScoreData";
 
 {
     const passwordValue = document.querySelector(".js-passwordInput");
@@ -71,7 +71,7 @@ import {
 
     function render() {
         findPasswordErrors(passwordValue.value);
-        renderErrors(passwordValue.value, passwordScore);
+        renderErrors(passwordValue.value, passwordScoreData);
     }
 
     function onFormSubmit(event) {

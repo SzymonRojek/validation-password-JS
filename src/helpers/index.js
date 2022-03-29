@@ -16,8 +16,6 @@ export { default as isNotFunctionError }
 from "./isNotFunctionError";
 export { default as isNotStringError }
 from "./isNotStringError";
-export { default as passwordScore }
-from "./passwordScore";
 export { default as additionalMessage }
 from "./additionalMessage";
 export { default as getPasswordStrengthRating }

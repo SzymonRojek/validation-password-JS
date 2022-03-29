@@ -20,3 +20,5 @@ export { default as passwordScore }
 from "./passwordScore";
 export { default as additionalMessage }
 from "./additionalMessage";
+export { default as getPasswordStrengthRating }
+from "./getPasswordStrengthRating";

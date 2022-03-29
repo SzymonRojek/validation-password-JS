@@ -25,9 +25,22 @@ Password Validation Form has got some restrictions:
 - minimum one number
 - the elength between 5 and 12 characters
 
-If password doesn't have a one of the rule the error occurs on the screen.
+If the password doesn't have a one of the rule above, the error occurs on the screen.
 
-Project written just to develop pure functions and to have a better understing of objects. There is also a possibility of assessing whether the password is weak or good or strong enough.
+There is also a possibility of assessing whether the password is weak or good or strong enough and display information to the user. I have decided to build an array with objects which contains numbers built based on the number of characters in the string generated after submitting the form at the end:
+
+Password is correct
+
+- "& quite good"
+- "& good enough"
+- "& really good"
+- "& strong enough"
+- "& strong"
+- "& very strong"
+- "& very very strong"
+- "& weak"
+
+**Project written just to develop simple pure functions and to have a better understanding of objects.**
 
 <br>
 

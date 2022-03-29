@@ -42,7 +42,7 @@ import { passwordScoreData } from "./passwordScoreData";
         ];
     }
 
-    function renderErrors(value, passwordScore) {
+    function renderMessages(value, passwordScore) {
         const finalPasswordScoreData = getPasswordScore(value, getPasswordScore);
         const findIndexMatchedScoreData = passwordScore.findIndex(
             ({ score }) =>
@@ -71,7 +71,7 @@ import { passwordScoreData } from "./passwordScoreData";
 
     function render() {
         findPasswordErrors(passwordValue.value);
-        renderErrors(passwordValue.value, passwordScoreData);
+        renderMessages(passwordValue.value, passwordScoreData);
     }
 
     function onFormSubmit(event) {

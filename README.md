@@ -18,19 +18,24 @@
 
 <br>
 
+**Project written just to develop simple pure functions and to have a better understanding of objects.**
+
 Password Validation Form has got some restrictions:
 
+```
 - minimum one upperCase letter
 - minimum one of the special characters: @#!
 - minimum one number
 - the elength between 5 and 12 characters
+```
 
 If the password doesn't have a one of the rule above, the error occurs on the screen.
 
-There is also a possibility of assessing whether the password is weak or good or strong enough and display information to the user. I have decided to build an array with objects which contains numbers built based on the number of characters in the string generated after submitting the form at the end:
+I am checking the strength of the password and assessing whether the password is weak or good or strong enough and display information to the user. In this case I have decided to build an array with objects which contains numbers built based on the number of characters in the string, generated after submitting the form at the end:
 
-Password is correct
+Password is correct...
 
+```
 - "& quite good"
 - "& good enough"
 - "& really good"
@@ -39,8 +44,7 @@ Password is correct
 - "& very strong"
 - "& very very strong"
 - "& weak"
-
-**Project written just to develop simple pure functions and to have a better understanding of objects.**
+```
 
 <br>
 

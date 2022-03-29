@@ -6,10 +6,10 @@ import {
     hasProperLength,
     hasSpecialCharacter,
     hasUpperLetter,
-    isNotFunctionError,
     isNotStringError,
     passwordScore,
     additionalMessage,
+    getPasswordStrengthRating,
 } from "../helpers";
 
 {
@@ -42,21 +42,15 @@ import {
         ];
     }
 
-    function getMessageScoreByValue(object, callback) {
-        isNotFunctionError(callback);
-
-        return (
-            Object.keys(object).find((key) =>
-                object[key].find(
-                    (a) => JSON.stringify(a) === JSON.stringify(callback())
-                )
-            ) || "& weak"
+    function renderErrors(value, passwordScore) {
+        const finalPasswordScoreData = getPasswordScore(value, getPasswordScore);
+        const findIndexMatchedScoreData = passwordScore.findIndex(
+            ({ score }) =>
+            JSON.stringify(score) === JSON.stringify(finalPasswordScoreData)
         );
-    }
 
-    function renderErrors(value) {
-        const passwordStrength = getMessageScoreByValue(passwordScore, () =>
-            getPasswordScore(value)
+        const passwordStrengthMessage = getPasswordStrengthRating(
+            findIndexMatchedScoreData
         );
 
         const messageErrorsToHTML = errors
@@ -68,7 +62,7 @@ import {
             .join("");
 
         if (!errors.length) {
-            additionalMessage(`Password is correct and ${passwordStrength}`);
+            additionalMessage(`Password is correct and ${passwordStrengthMessage}`);
         }
 
         const messageErrorsElement = document.querySelector(".js-errors");
@@ -77,7 +71,7 @@ import {
 
     function render() {
         findPasswordErrors(passwordValue.value);
-        renderErrors(passwordValue.value);
+        renderErrors(passwordValue.value, passwordScore);
     }
 
     function onFormSubmit(event) {

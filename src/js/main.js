@@ -1,93 +1,93 @@
 import {
-    countNumbers,
-    countSpecialCharacters,
-    countUpperLetters,
-    hasNumber,
-    hasProperLength,
-    hasSpecialCharacter,
-    hasUpperLetter,
-    isNotStringError,
-    additionalMessage,
-    getPasswordStrengthRating,
+  countNumbers,
+  countSpecialCharacters,
+  countUpperLetters,
+  hasNumber,
+  hasProperLength,
+  hasSpecialCharacter,
+  hasUpperLetter,
+  isNotStringError,
+  additionalMessage,
+  getPasswordStrengthRating,
 } from "../helpers";
 import { passwordScoreData } from "./passwordScoreData";
 
 {
-    const passwordValue = document.querySelector(".js-passwordInput");
-    const errorPasswordReuired = [{ message: "Password is required!" }];
+  const passwordValue = document.querySelector(".js-passwordInput");
+  const errorPasswordReuired = [{ message: "Password is required!" }];
 
-    let errors = [];
+  let errors = [];
 
-    function findPasswordErrors(password) {
-        isNotStringError(password);
+  function findPasswordErrors(password) {
+    isNotStringError(password);
 
-        const validationErrors = [
-            hasProperLength(password),
-            hasSpecialCharacter(password),
-            hasNumber(password),
-            hasUpperLetter(password),
-        ];
+    const validationErrors = [
+      hasProperLength(password),
+      hasSpecialCharacter(password),
+      hasNumber(password),
+      hasUpperLetter(password),
+    ];
 
-        errors =
-            passwordValue.value !== "" ?
-            validationErrors.filter(({ message }) => message) :
-            errorPasswordReuired;
-    }
+    errors =
+      passwordValue.value !== ""
+        ? validationErrors.filter(({ message }) => message)
+        : errorPasswordReuired;
+  }
 
-    function getPasswordScore(password) {
-        return [
-            countSpecialCharacters(password),
-            countNumbers(password),
-            countUpperLetters(password),
-        ];
-    }
+  function getPasswordScore(password) {
+    return [
+      countSpecialCharacters(password),
+      countNumbers(password),
+      countUpperLetters(password),
+    ];
+  }
 
-    function renderMessages(value, passwordScore) {
-        const finalPasswordScoreData = getPasswordScore(value, getPasswordScore);
-        const findIndexMatchedScoreData = passwordScore.findIndex(
-            ({ score }) =>
-            JSON.stringify(score) === JSON.stringify(finalPasswordScoreData)
-        );
+  function renderMessages(value, passwordScore) {
+    const finalPasswordScoreData = getPasswordScore(value, getPasswordScore);
+    const findIndexMatchedScoreData = passwordScore.findIndex(
+      ({ score }) =>
+        JSON.stringify(score) === JSON.stringify(finalPasswordScoreData)
+    );
 
-        const passwordStrengthMessage = getPasswordStrengthRating(
-            findIndexMatchedScoreData
-        );
+    const passwordStrengthMessage = getPasswordStrengthRating(
+      findIndexMatchedScoreData
+    );
 
-        const messageErrorsToHTML = errors
-            .map(({ message }) => {
-                return `<li class="form__list-error">
+    const messageErrorsToHTML = errors
+      .map(({ message }) => {
+        return `<li class="form__list-error">
               ${message}
                 </li>`;
-            })
-            .join("");
+      })
+      .join("");
 
-        if (!errors.length) {
-            additionalMessage(`Password is correct and ${passwordStrengthMessage}`);
-        }
-
-        const messageErrorsElement = document.querySelector(".js-errors");
-        messageErrorsElement.innerHTML = messageErrorsToHTML;
+    if (!errors.length) {
+      additionalMessage(`Password is correct and ${passwordStrengthMessage}`);
     }
 
-    function render() {
-        findPasswordErrors(passwordValue.value);
-        renderMessages(passwordValue.value, passwordScoreData);
-    }
+    const messageErrorsElement = document.querySelector(".js-errors");
+    messageErrorsElement.innerHTML = messageErrorsToHTML;
+  }
 
-    function onFormSubmit(event) {
-        event.preventDefault();
+  function render() {
+    findPasswordErrors(passwordValue.value);
+    renderMessages(passwordValue.value, passwordScoreData);
+  }
 
-        render();
+  function onFormSubmit(event) {
+    event.preventDefault();
 
-        passwordValue.value.trim();
-        passwordValue.focus();
-    }
+    render();
 
-    function init() {
-        const form = document.querySelector(".js-form");
+    passwordValue.value.trim();
+    passwordValue.focus();
+  }
 
-        form.addEventListener("submit", onFormSubmit);
-    }
+  function init() {
+    const form = document.querySelector(".js-form");
 
-    init();
+    form.addEventListener("submit", onFormSubmit);
+  }
+
+  init();
 }

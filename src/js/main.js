@@ -13,7 +13,6 @@ import {
 import { passwordScoreData } from "./passwordScoreData";
 
 {
-  const passwordValue = document.querySelector(".js-passwordInput");
   const errorPasswordReuired = [{ message: "Password is required!" }];
 
   let errors = [];
@@ -29,7 +28,7 @@ import { passwordScoreData } from "./passwordScoreData";
     ];
 
     errors =
-      passwordValue.value !== ""
+      password !== ""
         ? validationErrors.filter(({ message }) => message)
         : errorPasswordReuired;
   }
@@ -69,22 +68,23 @@ import { passwordScoreData } from "./passwordScoreData";
     messageErrorsElement.innerHTML = messageErrorsToHTML;
   }
 
-  function render() {
-    findPasswordErrors(passwordValue.value);
-    renderMessages(passwordValue.value, passwordScoreData);
+  function render(value) {
+    findPasswordErrors(value);
+    renderMessages(value, passwordScoreData);
   }
 
   function onFormSubmit(event) {
     event.preventDefault();
+    const passwordValue = document.querySelector(".js-passwordInput");
 
-    render();
+    render(passwordValue.value);
 
     passwordValue.value.trim();
     passwordValue.focus();
   }
 
   function init() {
-    const form = document.querySelector(".js-form");
+    const form = document.querySelector(".form");
 
     form.addEventListener("submit", onFormSubmit);
   }

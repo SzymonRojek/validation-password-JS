@@ -13,13 +13,12 @@ import {
 import { passwordScoreData } from "./passwordScoreData";
 
 {
-  const errorPasswordReuired = [{ message: "Password is required!" }];
-
   let errors = [];
 
   function findPasswordErrors(password) {
     isNotStringError(password);
 
+    const errorPasswordReuired = [{ message: "Password is required!" }];
     const validationErrors = [
       hasProperLength(password),
       hasSpecialCharacter(password),
@@ -27,10 +26,9 @@ import { passwordScoreData } from "./passwordScoreData";
       hasUpperLetter(password),
     ];
 
-    errors =
-      password !== ""
-        ? validationErrors.filter(({ message }) => message)
-        : errorPasswordReuired;
+    errors = password
+      ? validationErrors.filter(({ message }) => message)
+      : errorPasswordReuired;
   }
 
   function getPasswordScore(password) {
@@ -41,8 +39,8 @@ import { passwordScoreData } from "./passwordScoreData";
     ];
   }
 
-  function renderMessages(value, passwordScore) {
-    const finalPasswordScoreData = getPasswordScore(value, getPasswordScore);
+  function renderMessages(password, passwordScore) {
+    const finalPasswordScoreData = getPasswordScore(password);
     const findIndexMatchedScoreData = passwordScore.findIndex(
       ({ score }) =>
         JSON.stringify(score) === JSON.stringify(finalPasswordScoreData)
@@ -53,34 +51,42 @@ import { passwordScoreData } from "./passwordScoreData";
     );
 
     const messageErrorsToHTML = errors
-      .map(({ message }) => {
-        return `<li class="form__list-error">
-              ${message}
-                </li>`;
-      })
+      .map(
+        ({ message }) => `
+          <li class="form__list-error">
+            ${message}
+          </li>
+        `
+      )
       .join("");
-
-    if (!errors.length) {
-      additionalMessage(`Password is correct and ${passwordStrengthMessage}`);
-    }
 
     const messageErrorsElement = document.querySelector(".js-errors");
     messageErrorsElement.innerHTML = messageErrorsToHTML;
+
+    const additionalScoreElement = document.querySelector(".js-finalMessage");
+    const finalMessage = `Password is correct and ${passwordStrengthMessage}`;
+    additionalScoreElement.textContent = `${
+      !errors.length ? finalMessage : ""
+    }`;
   }
 
-  function render(value) {
-    findPasswordErrors(value);
-    renderMessages(value, passwordScoreData);
+  function render(password) {
+    findPasswordErrors(password);
+    renderMessages(password, passwordScoreData);
   }
 
   function onFormSubmit(event) {
+    const passwordElement = document.querySelector(".js-passwordInput");
     event.preventDefault();
-    const passwordValue = document.querySelector(".js-passwordInput");
 
-    render(passwordValue.value);
+    passwordElement.focus();
+    passwordElement.value.trim();
 
-    passwordValue.value.trim();
-    passwordValue.focus();
+    render(passwordElement.value);
+
+    if (!errors.length) {
+      passwordElement.value = "";
+    }
   }
 
   function init() {
